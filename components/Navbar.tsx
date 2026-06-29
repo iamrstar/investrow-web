@@ -19,7 +19,10 @@ export default function Navbar() {
     setMounted(true)
     const savedTheme = localStorage.getItem('theme')
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    setIsDark(savedTheme ? savedTheme === 'dark' : prefersDark)
+    const initialDark = savedTheme ? savedTheme === 'dark' : prefersDark
+    setIsDark(initialDark)
+    document.documentElement.classList.toggle('dark', initialDark)
+    document.documentElement.classList.toggle('light', !initialDark)
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -57,6 +60,7 @@ export default function Navbar() {
     setIsDark(newIsDark)
     localStorage.setItem('theme', newIsDark ? 'dark' : 'light')
     document.documentElement.classList.toggle('dark', newIsDark)
+    document.documentElement.classList.toggle('light', !newIsDark)
   }
 
   const navItems = [
